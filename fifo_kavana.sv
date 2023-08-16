@@ -56,7 +56,14 @@ class fifo_peek extends fifo_imp;
   function void fifo_read();
     if (count > 0) begin
       super.fifo_read(); // Call base class fifo_read
-      peek_ptr = (peek_ptr + 1) % arr.size();
+      if(peek_ptr == 0)
+        begin
+      peek_ptr = (peek_ptr ) % arr.size();
+           $display("Peeked data: %0d", arr[peek_ptr]);
+      peek_ptr++;
+        end
+      else
+        peek_ptr = (peek_ptr +1) % arr.size();
       $display("Peeked data: %0d", arr[peek_ptr]);
     end
   endfunction
